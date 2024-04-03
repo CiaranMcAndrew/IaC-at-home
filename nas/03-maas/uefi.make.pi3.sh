@@ -13,27 +13,10 @@ echo
 echo '*** WARNING**** this will delete everything on the target disk'
 echo 'use the command lsblk to verify you have the right device name'
 echo
-
-while getopts ":d:" opt; do
-  case $opt in
-    d) DISK="$OPTARG"
-    ;;
-    \?) echo "Invalid option -$OPTARG" >&2
-    exit 1
-    ;;
-  esac
-
-  case $OPTARG in
-    -*) echo "Option $opt needs a valid argument"
-    exit 1
-    ;;
-  esac
-done
+read -p "Enter device name of the disk e.g. /dev/sde ($DISK) : " NEWDISK
 
 # will default to the environment variable DISK if it is set and nothing entered above
 DISK=${DISK:-$NEWDISK}
-
-echo "Using disk: $DISK"
 
 if [ ! -b $DISK ] ; then
 echo "cant find the disk: $DISK" 
